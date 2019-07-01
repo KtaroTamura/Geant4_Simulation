@@ -1,0 +1,4 @@
+# Macro file for  
+#
+/run/initialize
+/run/beamOn 500

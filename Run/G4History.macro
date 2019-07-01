@@ -1,0 +1,57 @@
+/run/verbose 0
+/run/initialize
+/control/execute vis.mac
+/vis/open OGL 600x600-0+0
+/vis/sceneHandler/create OGL
+/vis/viewer/create ! ! 600x600-0+0
+/vis/viewer/refresh
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world -1 -1 none m 0 0 0 0 0 0
+/vis/sceneHandler/attach
+/vis/viewer/set/viewpointThetaPhi 0. 180.
+/vis/viewer/zoom 1.6
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/scene/notifyHandlers
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 2
+/vis/scene/notifyHandlers scene-0
+/vis/scene/add/hits
+/vis/scene/notifyHandlers
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
+/vis/verbose warnings
+/hits/verbose 1
+/control/execute gui.mac
+/gui/addMenu file File
+/gui/addButton file Quit exit
+/gui/addMenu run Run
+/gui/addButton run "beamOn 1" "/run/beamOn 1"
+/gui/addButton run run1 "/control/execute run1.mac"
+/gui/addButton run Original "/control/execute run_org.mac"
+/gui/addMenu gun Gun
+/gui/addButton gun "1 MeV" "/gun/energy 1 MeV"
+/gui/addButton gun "5 MeV" "/gun/energy 5 MeV"
+/gui/addButton gun "10 MeV" "/gun/energy 10 MeV"
+/gui/addButton gun "8Li" "/gun/distributeLevel 2"
+/gui/addButton gun "8Li + rand" "/gun/distributeLevel 12"
+/gui/addButton gun "90Sr" "/gun/distributeLevel 3"
+/gui/addButton gun "90Sr + random" "/gun/distributeLevel 13"
+/gui/addButton gun "e-" "/gun/particle e-"
+/gui/addButton gun "neutron" "/gun/particle neutron"
+/gui/addButton gun "proton" "/gun/particle proton"
+/gui/addMenu viewer Viewer
+/gui/addButton viewer "Set style surface" "/vis/viewer/set/style surface"
+/gui/addButton viewer "Set style wireframe" "/vis/viewer/set/style wireframe"
+/gui/addButton viewer "Refresh viewer" "/vis/viewer/refresh"
+/gui/addButton viewer "Update viewer (interaction or end-of-file)" "/vis/viewer/update"
+/gui/addButton viewer "Flush viewer (= refresh + update)" "/vis/viewer/flush"
+/gui/addButton viewer "Update scene" "/vis/scene/notifyHandlers"
+/gui/addButton viewer "Recreate" "/control/execute vis.mac"
+/gui/addButton viewer "whiteBG" "/vis/viewer/set/background white"
