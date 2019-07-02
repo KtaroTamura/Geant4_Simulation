@@ -138,11 +138,10 @@ void EventAction::Calorimeter(const G4Event* event)
 	auto CDC_hc=GetHC(event,0);
 	auto SC_hc=GetHC(event,1);
 	G4int hitnum_CDC =CDC_hc->GetSize();
-//	G4int hitnum_SC  =SC_hc->GetSize();
-	if(hitnum_CDC==0)return;
+	if(hitnum_CDC==0 ||hit_num_SC==0 )return;
 
 	G4double end_E;
-	auto SC_hit=static_cast<TrackerHit*>(CDC_hc->GetHit(0));
+	auto SC_hit=static_cast<TrackerHit*>(SC_hc->GetHit(0));
 	end_E=SC_hit->GetKineticE();
 
 #ifdef save_fileA
