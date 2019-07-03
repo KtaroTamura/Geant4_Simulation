@@ -11,6 +11,7 @@ G4double PrimaryGeneratorAction::Distribute_Li(){
   max_f=1000;
   G4double E_0,E_e,p_e,beta;
   G4double ran_x,ran_f;
+  G4double E_total;
 
   G4int j=0;
   while(j==0){
@@ -18,12 +19,13 @@ G4double PrimaryGeneratorAction::Distribute_Li(){
     ran_x = G4UniformRand()*(max_x-min_x)+min_x;                                                    
     ran_f = G4UniformRand()*max_f;
     E_e = ran_x;
-    p_e = sqrt(pow(E_e,2)-pow(m_e,2));
-    beta = sqrt(1-pow((m_e/E_e),2));
+	E_total=E_e+m_e;
+    p_e = sqrt(pow(E_total,2)-pow(m_e,2));
+    beta = sqrt(1-pow((m_e/E_total),2));
     E_0 = m_e+Q_b;
     G4double eta = Z_i/beta/137;
     G4double fermi = eta/(1-exp(-2*pi*eta));
-    G4double efunc = fermi*pow((E_0-E_e),2)*sqrt(pow(E_e,2)-pow(m_e,2))*E_e;
+    G4double efunc = fermi*pow((E_0-E_total),2)*sqrt(pow(E_total,2)-pow(m_e,2))*E_total;
 
     if (ran_f<efunc){
       j=1;
@@ -51,6 +53,7 @@ G4double PrimaryGeneratorAction::Sr_E(){
   max_f=1000;
   G4double E_0,E_Sr,p_e,beta;
   G4double ran_x,ran_f;
+  G4double E_total;
 
   G4int j=0;
   while(j==0){
@@ -58,12 +61,13 @@ G4double PrimaryGeneratorAction::Sr_E(){
     ran_x = G4UniformRand()*(max_x-min_x)+min_x;
     ran_f = G4UniformRand()*max_f;
     E_Sr = ran_x;
-    p_e = sqrt(pow(E_Sr,2)-pow(m_e,2));
-    beta = sqrt(1-pow((m_e/E_Sr),2));
+	E_total=E_Sr+m_e;
+    p_e = sqrt(pow(E_total,2)-pow(m_e,2));
+    beta = sqrt(1-pow((m_e/E_total),2));
     E_0 = m_e+Q_b;
     G4double eta = Z_i/beta/137;
     G4double fermi = eta/(1-exp(-2*pi*eta));
-    G4double efunc = fermi*pow((E_0-E_Sr),2)*sqrt(pow(E_Sr,2)-pow(m_e,2))*E_Sr;
+    G4double efunc = fermi*pow((E_0-E_total),2)*sqrt(pow(E_total,2)-pow(m_e,2))*E_total;
 
     if (ran_f<efunc){
       j=1;
@@ -79,6 +83,7 @@ G4double PrimaryGeneratorAction::Y_E(){
   max_f=1000;
   G4double E_0,E_Y,p_e,beta;
   G4double ran_x,ran_f;
+  G4double E_total;
 
   G4int j=0;
   while(j==0){
@@ -86,12 +91,13 @@ G4double PrimaryGeneratorAction::Y_E(){
     ran_x = G4UniformRand()*(max_x-min_x)+min_x;
     ran_f = G4UniformRand()*max_f;
     E_Y = ran_x;
-    p_e = sqrt(pow(E_Y,2)-pow(m_e,2));
-    beta = sqrt(1-pow((m_e/E_Y),2));
+	E_total=E_Y+m_e;
+    p_e = sqrt(pow(E_total,2)-pow(m_e,2));
+    beta = sqrt(1-pow((m_e/E_total),2));
     E_0 = m_e+Q_b;
     G4double eta = Z_i/beta/137;
     G4double fermi = eta/(1-exp(-2*pi*eta));
-    G4double efunc = fermi*pow((E_0-E_Y),2)*sqrt(pow(E_Y,2)-pow(m_e,2))*E_Y;
+    G4double efunc = fermi*pow((E_0-E_total),2)*sqrt(pow(E_total,2)-pow(m_e,2))*E_total;
 
     if (ran_f<efunc){
       j=1;
