@@ -95,15 +95,17 @@ class DetectorConstruction : public G4VUserDetectorConstruction
 
     //Physical Volume
     G4VPhysicalVolume* CDC_Pos;
-    G4VPhysicalVolume* SC_Pos[12];
     G4VPhysicalVolume* Foil_Pos;
-    G4VPhysicalVolume* TC_Pos[12];
     G4VPhysicalVolume* Anode_Pos[400];
     G4VPhysicalVolume* Pipe_Pos;
     G4VPhysicalVolume* Vacuum_Pos;
 
+#ifndef Detector_skin
+    G4VPhysicalVolume* TC_Pos[12];
+    G4VPhysicalVolume* SC_Pos[12];
+
 	//Skin Detail//
-#ifdef Detector_skin
+#else
 	G4Material* Mylar;
 	
     G4LogicalVolume* fSC_skin;
@@ -113,9 +115,9 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* CDCskin_Pos;
     G4VPhysicalVolume* SCskin_Pos[12];
     G4VPhysicalVolume* TCskin_Pos[12];
+	G4VPhysicalVolume* TC_Pos;
+	G4VPhysicalVolume* SC_Pos;
 #endif
-	
-
        
 	G4UserLimits*      fStepLimit;       // pointer to user step limits
     DetectorMessenger*  fMessenger;   // detector messenger

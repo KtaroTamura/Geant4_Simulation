@@ -64,8 +64,7 @@ void ScintSD::Initialize(G4HCofThisEvent* hce)
 	hce->AddHitsCollection( hcID, fHitsCollection );
 	
 	//clear energy deposit buffer (Add by myself)
-	TotalE=0;
-	for(G4int i=0; i<12;i++)HitSC[i]={0};
+	for(G4int i=0; i<12;i++){HitSC[i]={0};TotalE[i]=0;}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -76,26 +75,26 @@ G4bool ScintSD::ProcessHits(G4Step* aStep,
 {
 	// energy deposit
 	G4double edep = aStep->GetTotalEnergyDeposit();
-	if (edep==0.) return false;
 	
 	G4bool fenter=aStep->IsFirstStepInVolume();
 	G4int  Prime=aStep->GetTrack()->GetTrackID();
-	G4int  SC_number=aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber();
+	G4int  SC_number=aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber(1);
 
-	TotalE+=edep;
-	if(fenter==true){
+	if (edep==0. || Prime!=1) return false;
+//	if (edep==0.) return false;
 	  for(G4int ii=0;ii<12;ii++){
-	  	if(SC_number==ii)HitSC[ii]+=1;
+	  	if(SC_number==ii){HitSC[ii]+=1;TotalE[ii]+=edep;}
 	  }
-	}
-	if(Prime==1 && fenter==true && SC_number==0){
+//	if(Prime==1 && fenter==true && SC_number==0){
+/*
+	if(fenter==true && SC_number==0){
 		ScintHit* newHit = new ScintHit();
 		newHit->SetTrackID  (Prime);
 		newHit->SetPos (aStep->GetPostStepPoint()->GetPosition());
 		newHit->SetKineticE(aStep->GetTrack()->GetKineticEnergy());
 		fHitsCollection->insert( newHit );
 	}
-	
+*/
 	//newHit->Print();
 	
 	return true;
@@ -116,8 +115,14 @@ void ScintSD::EndOfEvent(G4HCofThisEvent*)
 	 G4cout <<"Hit SC:";
 	   for(G4int i=0; i<12;i++){if(HitSC[i]!=0)G4cout<< i+1 << ",";}
 	G4cout << G4endl;
-//     for ( G4int i=0; i<nofHits; i++ ) (*fHitsCollection)[i]->Print();
   }
+
+	for(G4int kk=0;kk<12;kk++){
+		if(TotalE[kk]>0){
+		ScintHit* newHit=new ScintHit(kk+1,TotalE[kk]);	
+		fHitsCollection->insert(newHit);
+		}
+	}
 }
 
 

@@ -121,7 +121,6 @@ void DetectorConstruction::DefineMaterials()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 {
 	// World
@@ -180,8 +179,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 		sprintf(SCskin_name,"SC_skin%d",ii+1);
 		sprintf(SCname,"SC%d",ii+1);
 		SCskin_Pos[ii]=new G4PVPlacement(G4Transform3D(SC_Rot,SC_Vec),fSC_skin,SCskin_name,fWorldVolume,false,ii,fCheckOverlaps);
-		SC_Pos[ii]=new G4PVPlacement(G4Transform3D(G4RotationMatrix(),G4ThreeVector()),fSCVolume,SCname,fSC_skin,false,ii,fCheckOverlaps);
 	}
+		SC_Pos=new G4PVPlacement(G4Transform3D(G4RotationMatrix(),G4ThreeVector()),fSCVolume,SCname,fSC_skin,false,0);
 #endif
 
 	// CDC volume
@@ -237,8 +236,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 			sprintf(TCskin_name,"TC_skin%d",ii+1);
 			sprintf(TCname,"TC%d",ii+1);
 			TCskin_Pos[ii]=new G4PVPlacement(G4Transform3D(TC_Rot,TC_Vec),fTC_skin,TCskin_name,fWorldVolume,false,ii,fCheckOverlaps);
-			TC_Pos[ii]=new G4PVPlacement(G4Transform3D(G4RotationMatrix(),G4ThreeVector()),fTCVolume,TCname,fTC_skin,false,ii,fCheckOverlaps);
 		}
+			TC_Pos=new G4PVPlacement(G4Transform3D(G4RotationMatrix(),G4ThreeVector()),fTCVolume,TCname,fTC_skin,false,0);
 #endif
 
 
