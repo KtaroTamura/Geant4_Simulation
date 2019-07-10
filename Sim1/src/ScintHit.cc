@@ -34,7 +34,7 @@
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
 
-#include "G4SystemofUnits.hh"
+#include "G4SystemOfUnits.hh"
 #include <iomanip>
 
 G4ThreadLocal G4Allocator<ScintHit>* ScintHitAllocator=0;
